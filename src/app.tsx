@@ -1,4 +1,4 @@
-import Login from "./components/Login";
+import Login from "./components/Login/index";
 
 const App = (): JSX.Element  => {
   return (
