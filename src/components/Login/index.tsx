@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Button,
@@ -10,10 +10,26 @@ import {
   Link,
   Text,
 } from "@chakra-ui/react";
+import Api from "../../Api";
 
 
 
 const Login = (): JSX.Element => {
+  const [email, setEmail] = useState<string>("")
+  const [password, setPassword] = useState<string>("")
+
+  const submit = async () => {
+    try {
+      const datos = {email, password};
+      const token = await Api.post("/auth/login", datos);
+      localStorage.setItem("t", JSON.stringify(token.data));
+      alert("Usuário Logado")
+    } catch (error) {
+      console.log(error)
+      alert(error)
+    }
+  };
+
   return (
     <Box
       width={"100vw"}
@@ -46,15 +62,15 @@ const Login = (): JSX.Element => {
         </Text>
         <FormControl>
           <FormLabel>Email</FormLabel>
-          <Input type="email" placeholder="Seu email" padding={"0.6rem"} width={"20rem"} borderRadius={"0.6rem"}/>
+          <Input type="email" placeholder="Seu email" padding={"0.6rem"} width={"20rem"} borderRadius={"0.6rem"} onChange={(e)=>{setEmail(e.target.value)}}/>
         </FormControl>
 
         <FormControl mt={4}>
           <FormLabel>Senha</FormLabel>
-          <Input type="password" placeholder="Sua senha" padding={"0.6rem"} width={"20rem"} borderRadius={"0.6rem"}/>
+          <Input type="password" placeholder="Sua senha" padding={"0.6rem"} width={"20rem"} borderRadius={"0.6rem"} onChange={(e)=>{setPassword(e.target.value)}}/>
         </FormControl>
 
-        <Button mt={4} colorScheme="teal" width="full" padding={"0.7rem 4rem"} borderRadius={"0.6rem"} cursor={"pointer"}>
+        <Button onClick={submit} mt={4} colorScheme="teal" width="full" padding={"0.7rem 4rem"} borderRadius={"0.6rem"} cursor={"pointer"}>
           Entrar
         </Button>
 
