@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -10,23 +10,34 @@ import {
   Link,
   Text,
 } from "@chakra-ui/react";
-import Api from "../../Api";
+import Api from "../../../Api";
+import { useNavigate } from "react-router-dom";
 
+interface IProps {
+  setLogged: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-
-const Login = (): JSX.Element => {
+const Login = ({ setLogged }: IProps): JSX.Element => {
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token: object = JSON.parse(localStorage.getItem("t"));
+    setLogged(token ? true : false);
+  }, []);
 
   const submit = async () => {
     try {
-      const datos = {email, password};
+      const datos = { email, password };
       const token = await Api.post("/auth/login", datos);
       localStorage.setItem("t", JSON.stringify(token.data));
-      alert("Usuário Logado")
+      setLogged(true)
+      navigate("/");
+      alert("Usuário Logado");
     } catch (error) {
-      console.log(error)
-      alert(error)
+      console.log(error);
+      alert(error);
     }
   };
 
