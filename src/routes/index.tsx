@@ -19,6 +19,7 @@ import { HashRouter, Navigate, Route, Routes as Switch } from "react-router-dom"
 import Login from "../components/Login/Login";
 import Home from "../components/Login/Home";
 import { useEffect } from "react";
+import NewUser from "../components/Login/NewUser";
 
 interface IProps {
   logged: boolean;
@@ -33,6 +34,7 @@ const Routes = ({ logged, setLogged }: IProps): JSX.Element => {
         <Route path="/" element={logged ? <Navigate to={"/home"} /> : <Navigate to={"/login"}/>} />
         <Route path="/login" element={<Login setLogged={setLogged} />} />
         <Route path="/home" element={<Home setLogged={setLogged}/>} />
+        <Route path="/register" element={<NewUser/>} />
       </Switch>
     </HashRouter>
   );

@@ -11,6 +11,7 @@ import {
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Api from "../../../Api";
+import ImageUpload from "../ImageUpload";
 
 interface IProps {
   setLogged: React.Dispatch<React.SetStateAction<boolean>>;
@@ -21,10 +22,11 @@ const Home = ({ setLogged }: IProps) => {
   const [chatid, setChatId] = useState<string>()
   const [schedule, setSchedule] = useState<string>()
   const [message, setMessage] = useState<string>()
+  const [images, setImages] = useState<[] | string[]>([]);
 
   const sendDatos = async () => {
     try {
-      await Api.post("telegram/send", {tokenbot , chatid , schedule , message})
+      await Api.post("telegram/send", {tokenbot , chatid , schedule , message, images,})
       alert("Mensagem programada !")
     } catch (error) {
       alert("Erro ao programar mensagem !")
@@ -110,7 +112,9 @@ const Home = ({ setLogged }: IProps) => {
           ></Textarea>
         </FormControl>
 
-        <Box
+        <ImageUpload images={images} setImages={setImages} maxImages={8} />
+
+        {/* <Box
           borderStyle={"dotted"}
           width={"80%"}
           height={"6rem"}
@@ -127,7 +131,7 @@ const Home = ({ setLogged }: IProps) => {
 
         <Box display={"flex"} justifyContent={"flex-start"} width={"80%"}>
           <span>Imagens selecionadas:</span>
-        </Box>
+        </Box> */}
 
         <Button
           id="submit"

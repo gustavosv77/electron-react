@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -93,7 +93,7 @@ const Login = ({ setLogged }: IProps): JSX.Element => {
 
         <Text mt={2}>
           Não possuí uma conta?{" "}
-          <Link color="teal.500" href="#">
+          <Link color="teal.500" href="#register">
             Criar Conta
           </Link>
         </Text>
