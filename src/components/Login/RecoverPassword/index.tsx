@@ -49,7 +49,7 @@ const RecoverPassword = () : JSX.Element => {
         </Text>
         <FormControl>
           <FormLabel>Senha</FormLabel>
-          <Input type="email" placeholder="Digite sua nova senha" padding={"0.6rem"} width={"20rem"} borderRadius={"0.6rem"} onChange={(e)=>{setNewPassword(e.target.value)}}/>
+          <Input type="password" placeholder="Digite sua nova senha" padding={"0.6rem"} width={"20rem"} borderRadius={"0.6rem"} onChange={(e)=>{setNewPassword(e.target.value)}}/>
         </FormControl>
 
         <FormControl mt={4}>
@@ -104,4 +104,4 @@ const RecoverPassword = () : JSX.Element => {
   );
 };
 
-export default RecoverPassword;
+export default RecoverPassword;  

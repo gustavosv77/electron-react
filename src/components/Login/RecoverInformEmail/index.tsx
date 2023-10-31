@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import {
   Box,
   Button,
-  Center,
   Flex,
   FormControl,
   FormLabel,
@@ -13,33 +12,9 @@ import {
 import Api from "../../../Api";
 import { useNavigate } from "react-router-dom";
 
-interface IProps {
-  setLogged: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-const Login = ({ setLogged }: IProps): JSX.Element => {
+const RecoverInformEmail = () : JSX.Element => {
   const [email, setEmail] = useState<string>("")
-  const [password, setPassword] = useState<string>("")
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const token: object = JSON.parse(localStorage.getItem("t"));
-    setLogged(token ? true : false);
-  }, []);
-
-  const submit = async () => {
-    try {
-      const datos = { email, password };
-      const token = await Api.post("/auth/login", datos);
-      localStorage.setItem("t", JSON.stringify(token.data));
-      setLogged(true)
-      navigate("/");
-      alert("Usuário Logado");
-    } catch (error) {
-      console.log(error);
-      alert(error);
-    }
-  };
 
   return (
     <Box
@@ -58,7 +33,7 @@ const Login = ({ setLogged }: IProps): JSX.Element => {
         margin={"auto"}
         flexDirection={"column"}
         alignItems={"center"}
-        gap={"1rem"}
+        gap={"2rem"}
         borderRadius={"1rem"}
         width={"20%"}
         justifyContent={"center"}
@@ -69,41 +44,60 @@ const Login = ({ setLogged }: IProps): JSX.Element => {
         zIndex={"2"}
       >
         <Text fontSize="2rem" fontWeight="bold" mb={4}>
-          Login
+          Informe seu email
         </Text>
         <FormControl>
           <FormLabel>Email</FormLabel>
-          <Input type="email" placeholder="Seu email" padding={"0.6rem"} width={"20rem"} borderRadius={"0.6rem"} onChange={(e)=>{setEmail(e.target.value)}}/>
+          <Input type="email" placeholder="Digite seu email cadastrado" padding={"0.6rem"} width={"20rem"} borderRadius={"0.6rem"} onChange={(e)=>{setEmail(e.target.value)}}/>
         </FormControl>
 
-        <FormControl mt={4}>
-          <FormLabel>Senha</FormLabel>
-          <Input type="password" placeholder="Sua senha" padding={"0.6rem"} width={"20rem"} borderRadius={"0.6rem"} onChange={(e)=>{setPassword(e.target.value)}}/>
-        </FormControl>
+        
+    <Flex gap={"2.5rem"}>   
+      <Button
+        padding={"1rem 2.5rem"}
+        borderRadius={"1.3rem"}
+        fontSize={"1rem"}
+        fontWeight={"600"}
+        backgroundColor={"#00a2ff"}
+        color={"white"}
+        border={"none"}
+        cursor={"pointer"}
+        transition={"400ms linear"}
+        _hover={{
+          color: "#00a2ff",
+          border: "1px solid",
+          background: "white",
+        }}
+        marginBottom={"2rem"}
+        onClick={()=> navigate("/")}
+      >
+        Enviar
+      </Button>
 
-        <Flex width={"21rem"} fontSize={"medium"}>
-        <Text mt={2}>
-          <Link color="teal.500" href="#">
-            Esqueceu sua senha?
-          </Link>
-        </Text>
-        </Flex>
-
-        <Button onClick={submit} mt={4} colorScheme="teal" width="full" padding={"0.7rem 4rem"} borderRadius={"0.6rem"} cursor={"pointer"}>
-          Entrar
+      <Button
+        padding={"1rem 2.5rem"}
+        borderRadius={"1.3rem"}
+        fontSize={"1rem"}
+        fontWeight={"600"}
+        backgroundColor={"red"}
+        color={"white"}
+        border={"none"}
+        cursor={"pointer"}
+        transition={"400ms linear"}
+        _hover={{
+          color: "red",
+          border: "1px solid",
+          background: "white",
+        }}
+        marginBottom={"2rem"}
+        onClick={()=> navigate("/")}
+      >
+        Voltar
         </Button>
-
-       
-
-        <Text mt={2}>
-          Não possuí uma conta?{" "}
-          <Link color="teal.500" href="#register">
-            Criar Conta
-          </Link>
-        </Text>
+        </Flex> 
       </Flex>
     </Box>
   );
 };
 
-export default Login;
+export default RecoverInformEmail;
