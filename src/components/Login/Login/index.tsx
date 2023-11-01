@@ -83,9 +83,16 @@ const Login = ({ setLogged }: IProps): JSX.Element => {
             placeholder="Seu email"
             padding={"0.6rem"}
             width={"20rem"}
-            borderRadius={"0.6rem"}
+            borderRadius={"0.6rem"}   
+            border = {"1px solid"}
+            borderColor= {"#380b61"}      
             onChange={(e) => {
-              setEmail(e.target.value);
+              setEmail(e.target.value);        
+            }}
+            _hover={{          
+              border: "1px solid",
+              transform: "scale(1.01)",  
+              borderColor: "#380b61",    
             }}
           />
         </FormControl>
@@ -98,8 +105,15 @@ const Login = ({ setLogged }: IProps): JSX.Element => {
             padding={"0.6rem"}
             width={"20rem"}
             borderRadius={"0.6rem"}
+            border = {"1px solid"}
+            borderColor= {"#380b61"}
             onChange={(e) => {
               setPassword(e.target.value);
+            }}
+            _hover={{          
+              border: "1px solid",
+              transform: "scale(1.01)",  
+              borderColor: "#380b61",    
             }}
           />
         </FormControl>
