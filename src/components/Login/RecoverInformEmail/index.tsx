@@ -12,9 +12,20 @@ import {
 import Api from "../../../Api";
 import { useNavigate } from "react-router-dom";
 
-const RecoverInformEmail = () : JSX.Element => {
+interface IProps {
+  setbooleanTokenEmail: React.Dispatch<React.SetStateAction<boolean>>
+  setBooleanInformEmail: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+const RecoverInformEmail = ({setbooleanTokenEmail, setBooleanInformEmail}: IProps) : JSX.Element => {
   const [email, setEmail] = useState<string>("")
   const navigate = useNavigate();
+
+  const submit = () => {
+    setbooleanTokenEmail(true);
+    setBooleanInformEmail(false);
+    alert("Token de recuperação enviado! Verifique sua caixa spam caso não encontre.")
+  };
 
   return (
     <Box
@@ -58,18 +69,18 @@ const RecoverInformEmail = () : JSX.Element => {
         borderRadius={"1.3rem"}
         fontSize={"1rem"}
         fontWeight={"600"}
-        backgroundColor={"#00a2ff"}
+        backgroundColor={"#1578b1"}
         color={"white"}
         border={"none"}
         cursor={"pointer"}
         transition={"400ms linear"}
         _hover={{
-          color: "#00a2ff",
+          color: "#1578b1",
           border: "1px solid",
           background: "white",
         }}
         marginBottom={"2rem"}
-        onClick={()=> navigate("/")}
+        onClick={submit}
       >
         Enviar
       </Button>
@@ -79,13 +90,13 @@ const RecoverInformEmail = () : JSX.Element => {
         borderRadius={"1.3rem"}
         fontSize={"1rem"}
         fontWeight={"600"}
-        backgroundColor={"red"}
+        backgroundColor={"#380b61"}
         color={"white"}
         border={"none"}
         cursor={"pointer"}
         transition={"400ms linear"}
         _hover={{
-          color: "red",
+          color: "#380b61",
           border: "1px solid",
           background: "white",
         }}
