@@ -27,12 +27,19 @@ const RecoverPassword = ({
   const [confirmNewPassword, setConfirmNewPassword] = useState<string>("");
   const navigate = useNavigate();
 
-  const submit = () => {
-    navigate("/")
-    alert("Senha alterada com Sucesso !")
-    setBooleanInformEmail(true);
-    setbooleanInformTokenEmail(false);
-    setbooleanInformNewPassword(false);
+  const submit = async () => {
+    try {
+      const user = JSON.parse(localStorage.get("u"));
+      const headers = {
+         'Authorization': `Bearer ${user.access_token}`
+         };
+      await Api.patch(`user/${user.id}`, { password: newPassword }, {headers});
+      navigate("/");
+      alert("Senha alterada com Sucesso !");
+      setBooleanInformEmail(true);
+      setbooleanInformTokenEmail(false);
+      setbooleanInformNewPassword(false);
+    } catch (error) {}
   };
 
   return (
