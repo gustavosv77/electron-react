@@ -21,6 +21,7 @@ const Login = ({ setLogged }: IProps): JSX.Element => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const navigate = useNavigate();
+  const [loading, setLoading] = useState<boolean>(false)
 
   useEffect(() => {
     const token: object = JSON.parse(localStorage.getItem("t"));
@@ -30,12 +31,15 @@ const Login = ({ setLogged }: IProps): JSX.Element => {
   const submit = async () => {
     try {
       const datos = { email, password };
+      setLoading(!loading)
       const token = await Api.post("/auth/login", datos);
+      setLoading(!loading)
       localStorage.setItem("t", JSON.stringify(token.data));
       setLogged(true);
       navigate("/");
       alert("Usuário Logado");
     } catch (error) {
+      setLoading(!loading)
       console.log(error);
       alert(error);
     }
@@ -144,6 +148,7 @@ const Login = ({ setLogged }: IProps): JSX.Element => {
             background: "#380b61",
             transform: "scale(1.02)",      
           }}
+          isLoading={loading}
         >
           Entrar
         </Button>

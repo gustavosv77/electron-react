@@ -26,20 +26,27 @@ const RecoverPassword = ({
   const [newPassword, setNewPassword] = useState<string>("");
   const [confirmNewPassword, setConfirmNewPassword] = useState<string>("");
   const navigate = useNavigate();
+  const [loading, setLoading] = useState<boolean>(false)
 
   const submit = async () => {
     try {
-      const user = JSON.parse(localStorage.get("u"));
+      const user = (localStorage.getItem("u"));
+      var userParse = JSON.parse(user)
       const headers = {
-         'Authorization': `Bearer ${user.access_token}`
+         'Authorization': `Bearer ${userParse.access_token}`
          };
-      await Api.patch(`user/${user.id}`, { password: newPassword }, {headers});
+         setLoading(!loading)
+      await Api.patch(`user/${userParse.id}`, { password: newPassword }, {headers});
+      setLoading(!loading)
       navigate("/");
       alert("Senha alterada com Sucesso !");
       setBooleanInformEmail(true);
       setbooleanInformTokenEmail(false);
       setbooleanInformNewPassword(false);
-    } catch (error) {}
+    } catch (error) {
+      console.log(userParse)
+      alert("Error ao trocar senha! Tente usar uma senha mais forte")
+    }
   };
 
   return (
@@ -121,6 +128,7 @@ const RecoverPassword = ({
               background: "white",
             }}
             marginBottom={"2rem"}
+            isLoading={loading}
             onClick={submit}
           >
             Enviar
